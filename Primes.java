@@ -25,7 +25,7 @@ public class Primes {
     public double number_end_7;
     public double number_end_9;
 
-    //count of pairs of a number q followed by i
+    //count of pairs of a number q followed by a
     public double q_followed_by_1;
     public double q_followed_by_3;
     public double q_followed_by_7;
@@ -33,11 +33,11 @@ public class Primes {
 
     public Primes() {
         this.number_primes = 0;
+        //default search is 100
         this.range = 100;
     }
 
     public Primes(int range) {
-        this.number_primes = 0;
         this.range = range;
     }
 
@@ -45,15 +45,15 @@ public class Primes {
      * set statistics for primes from 1 to n where n is the number of primes
      */
     public void get_stats() {
+        //reset vars before getting stats
         reset();
-        int current_prime = 0;
-        if (range > 2) {
-            for (int i = 2; i < range; i++) {
-                i = get_next_prime(i);
-                update_stats(i);
-            }
-        }
 
+        //get primes within range
+        for (int i = 2; i < range; i++) {
+            i = get_next_prime(i);
+            //update the counts with new prime
+            update_stats(i);
+        }
     }
 
     /**
@@ -81,7 +81,7 @@ public class Primes {
                 }
                 //update what last prime is
                 last_prime = 1;
-                
+
                 break;
             case 3:
                 //increment count of current prime
@@ -91,7 +91,7 @@ public class Primes {
                 }
                 //update what last prime is
                 last_prime = 3;
-                
+
                 break;
             case 7:
                 //increment count of current prime
@@ -188,7 +188,7 @@ public class Primes {
         number_end_3 = 0;
         number_end_7 = 0;
         number_end_9 = 0;
-        
+
         q_followed_by_1 = 0;
         q_followed_by_3 = 0;
         q_followed_by_7 = 0;
