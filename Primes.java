@@ -4,7 +4,6 @@
 // and prime number pairs within a range 0 - n
 // 
 // 
-
 package primetest;
 
 import java.util.*;
@@ -12,10 +11,13 @@ import java.util.*;
 public class Primes {
 
     //amount of numbers to look through
-    private int range;
+    public int range;
 
     //number of primes so far
-    private int number_primes;
+    public int number_primes;
+
+    //track whether or not last number ended in 1
+    private int last_prime = 0;
 
     //count of numbers ending in 1,3,7, or 9
     private double number_end_1;
@@ -29,9 +31,6 @@ public class Primes {
     private double one_followed_by_7;
     private double one_followed_by_9;
 
-    //track whether or not last number ended in 1
-    private boolean is_one = false;
-
     public Primes() {
         this.number_primes = 0;
         this.range = 100;
@@ -41,10 +40,9 @@ public class Primes {
         this.number_primes = 0;
         this.range = range;
     }
-    
+
     /**
-     * set statistics for primes from 1 to n
-     * where n is the number of primes
+     * set statistics for primes from 1 to n where n is the number of primes
      */
     public void get_stats() {
         reset();
@@ -61,53 +59,58 @@ public class Primes {
     /**
      * updates the statistics with prime also checks and sets if prime number is
      * 1 and increments each pair: 1-1, 1-3, 1-7, etc.
-     * @param prime     int
+     *
+     * @param prime int
      */
     public void update_stats(int prime) {
         int ones_place = get_ones_place(prime);
+        boolean is_pair = false;
+
+        if (last_prime == 1) {
+            is_pair = true;
+        }
 
         switch (ones_place) {
             case 1:
                 //increment count of current prime
                 number_end_1++;
                 //if the previous number was one
-                if (is_one) {
+                if (is_pair) {
                     //increment count of pair
                     one_followed_by_1++;
                 }
-
-                is_one = true;
+                last_prime = 1;
                 break;
             case 3:
                 number_end_3++;
-                if (is_one) {
+                if (is_pair) {
                     one_followed_by_3++;
-                    is_one = false;
                 }
+                last_prime = 3;
                 break;
             case 7:
                 number_end_7++;
-                if (is_one) {
+                if (is_pair) {
                     one_followed_by_7++;
-                    is_one = false;
                 }
+                last_prime = 7;
                 break;
             case 9:
                 number_end_9++;
-                if (is_one) {
+                if (is_pair) {
                     one_followed_by_9++;
-                    is_one = false;
                 }
+                last_prime = 9;
                 break;
         }
 
     }
 
     /**
-     * find prime number greater than or equal to 
-     * current number
-     * @param current_number    int
-     * @return                  int
+     * find prime number greater than or equal to current number
+     *
+     * @param current_number int
+     * @return int
      */
     public int get_next_prime(int current_number) {
         int next_prime = 0;
@@ -136,8 +139,9 @@ public class Primes {
     /**
      * returns whether or not number is prime
      * http://www.mkyong.com/java/how-to-determine-a-prime-number-in-java/
+     *
      * @param prime_to_test int
-     * @return              boolean
+     * @return boolean
      */
     private boolean is_prime(int prime_to_test) {
 
@@ -157,8 +161,9 @@ public class Primes {
 
     /**
      * returns the ones place of a number
-     * @param number    int
-     * @return          int
+     *
+     * @param number int
+     * @return int
      */
     public int get_ones_place(int number) {
         //find ones place using modulo
@@ -179,30 +184,6 @@ public class Primes {
         one_followed_by_3 = 0;
         one_followed_by_7 = 0;
         one_followed_by_9 = 0;
-    }
-
-    /**
-     * set range
-     * @param range int
-     */
-    public void set_range(int range) {
-        this.range = range;
-    }
-
-    /**
-     * get range
-     * @return  int 
-     */
-    public int get_range() {
-        return this.range;
-    }
-
-    /**
-     * get number of primes so far
-     * @return   int
-     */
-    public int get_number_primes() {
-        return this.number_primes;
     }
 
     /**

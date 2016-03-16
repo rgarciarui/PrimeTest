@@ -24,7 +24,7 @@ public class PrimeTest {
             System.out.println("range: "+range);
             
             //set new range
-            primes.set_range(range);
+            primes.range = range;
             
             //run the program
             primes.get_stats();
