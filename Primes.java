@@ -15,6 +15,11 @@ public class Primes {
     private double number_end_3;
     private double number_end_7;
     private double number_end_9;
+    private double one_followed_by_1;
+    private double one_followed_by_3;
+    private double one_followed_by_7;
+    private double one_followed_by_9;
+    private boolean is_one = false;
 
     public Primes() {
         this.number_primes = 0;
@@ -51,15 +56,32 @@ public class Primes {
         switch (ones_place) {
             case 1:
                 number_end_1++;
+                if (is_one) {
+                    one_followed_by_1++;
+                }
+
+                is_one = true;
                 break;
             case 3:
                 number_end_3++;
+                if (is_one) {
+                    one_followed_by_3++;
+                    is_one = false;
+                }
                 break;
             case 7:
                 number_end_7++;
+                if (is_one) {
+                    one_followed_by_7++;
+                    is_one = false;
+                }
                 break;
             case 9:
                 number_end_9++;
+                if (is_one) {
+                    one_followed_by_9++;
+                    is_one = false;
+                }
                 break;
         }
 
@@ -138,12 +160,17 @@ public class Primes {
         return place;
     }
 
-    private void reset(){
+    private void reset() {
         number_primes = 0;
         number_end_1 = 0;
         number_end_3 = 0;
         number_end_7 = 0;
         number_end_9 = 0;
+
+        one_followed_by_1 = 0;
+        one_followed_by_3 = 0;
+        one_followed_by_7 = 0;
+        one_followed_by_9 = 0;
     }
 
     //set range
@@ -163,9 +190,15 @@ public class Primes {
 
     public void output() {
 
-        System.out.println("1's: " + number_end_1 / number_primes * 100 + "%");
-        System.out.println("3's: " + number_end_3 / number_primes * 100 + "%");
-        System.out.println("7's: " + number_end_7 / number_primes * 100 + "%");
-        System.out.println("9's: " + number_end_9 / number_primes * 100 + "%");
+        System.out.println("#1's: " + number_end_1 / number_primes * 100 + "%");
+        System.out.println("#3's: " + number_end_3 / number_primes * 100 + "%");
+        System.out.println("#7's: " + number_end_7 / number_primes * 100 + "%");
+        System.out.println("#9's: " + number_end_9 / number_primes * 100 + "%");
+        
+        System.out.println("1's following 1: " + one_followed_by_1 / number_end_1 * 100 + "%");
+        System.out.println("3's following 1: " + one_followed_by_3 / number_end_1 * 100 + "%");
+        System.out.println("7's following 1: " + one_followed_by_7 / number_end_1 * 100 + "%");
+        System.out.println("9's following 1: " + one_followed_by_9 / number_end_1 * 100 + "%");
+
     }
 }
