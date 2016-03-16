@@ -213,7 +213,7 @@ public class Primes {
 
     /**
      * get number of primes so far
-     * @return  int
+     * @return   int
      */
     public int get_number_primes() {
         return this.number_primes;
