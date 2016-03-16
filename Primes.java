@@ -29,11 +29,13 @@ public class Primes {
     //return statistics for primes from 1 to n
     //where n is the number of primes
     public void get_stats() {
+        reset();
         int current_prime = 0;
-
-        for (int i = 2; i < range; i++) {
-            i = get_next_prime(i);
-            update_stats(i);
+        if (range > 2) {
+            for (int i = 2; i < range; i++) {
+                i = get_next_prime(i);
+                update_stats(i);
+            }
         }
 
     }
@@ -83,7 +85,7 @@ public class Primes {
             //if it's not, increment current number
             current_prime += 1;
         } while (next_prime == 0);
-        
+
         //return the prime number
         return next_prime;
     }
@@ -136,6 +138,14 @@ public class Primes {
         return place;
     }
 
+    private void reset(){
+        number_primes = 0;
+        number_end_1 = 0;
+        number_end_3 = 0;
+        number_end_7 = 0;
+        number_end_9 = 0;
+    }
+
     //set range
     public void set_range(int range) {
         this.range = range;
@@ -145,22 +155,17 @@ public class Primes {
     public int get_range() {
         return this.range;
     }
-    
-    //set number of primes
-    public void set_number_primes(int number_primes) {
-        this.number_primes = number_primes;
-    }
-    
+
     //get number of primes
     public int get_number_primes() {
         return this.number_primes;
     }
 
     public void output() {
-            
-        System.out.println("1's: "+number_end_1 / number_primes * 100+"%");
-        System.out.println("3's: "+number_end_3 / number_primes * 100+"%");
-        System.out.println("7's: "+number_end_7 / number_primes * 100+"%");
-        System.out.println("9's: "+number_end_9 / number_primes * 100+"%");
+
+        System.out.println("1's: " + number_end_1 / number_primes * 100 + "%");
+        System.out.println("3's: " + number_end_3 / number_primes * 100 + "%");
+        System.out.println("7's: " + number_end_7 / number_primes * 100 + "%");
+        System.out.println("9's: " + number_end_9 / number_primes * 100 + "%");
     }
 }
