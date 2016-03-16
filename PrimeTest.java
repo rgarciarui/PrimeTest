@@ -12,7 +12,7 @@ import java.util.*;
 public class PrimeTest {
 
     public static void main(String[] args) {
-        int iterations = 40;
+        int iterations = 20;
         Primes primes = new Primes();
         
         for(int i = 1; i<=iterations;i++){
@@ -27,7 +27,7 @@ public class PrimeTest {
             primes.range = range;
             
             //run the program
-            primes.get_stats();
+            primes.run();
             
             //output the results
             primes.output();

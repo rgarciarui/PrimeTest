@@ -44,7 +44,7 @@ public class Primes {
     /**
      * set statistics for primes from 1 to n where n is the number of primes
      */
-    public void get_stats() {
+    public void run() {
         //reset vars before getting stats
         reset();
 
