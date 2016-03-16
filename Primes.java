@@ -20,10 +20,10 @@ public class Primes {
     private int last_prime = 0;
 
     //count of numbers ending in 1,3,7, or 9
-    public double number_end_1;
-    public double number_end_3;
-    public double number_end_7;
-    public double number_end_9;
+    public double primes_end_1;
+    public double primes_end_3;
+    public double primes_end_7;
+    public double primes_end_9;
 
     //count of pairs of a number q followed by a
     public double q_followed_by_1;
@@ -73,7 +73,7 @@ public class Primes {
         switch (ones_place) {
             case 1:
                 //increment count of current prime
-                number_end_1++;
+                primes_end_1++;
                 //if the previous number was one
                 if (is_pair) {
                     //increment count of pair
@@ -85,7 +85,7 @@ public class Primes {
                 break;
             case 3:
                 //increment count of current prime
-                number_end_3++;
+                primes_end_3++;
                 if (is_pair) {
                     q_followed_by_3++;
                 }
@@ -95,7 +95,7 @@ public class Primes {
                 break;
             case 7:
                 //increment count of current prime
-                number_end_7++;
+                primes_end_7++;
                 if (is_pair) {
                     q_followed_by_7++;
                 }
@@ -104,7 +104,7 @@ public class Primes {
                 break;
             case 9:
                 //increment count of current prime
-                number_end_9++;
+                primes_end_9++;
                 if (is_pair) {
                     q_followed_by_9++;
                 }
@@ -184,10 +184,10 @@ public class Primes {
      */
     private void reset() {
         number_primes = 0;
-        number_end_1 = 0;
-        number_end_3 = 0;
-        number_end_7 = 0;
-        number_end_9 = 0;
+        primes_end_1 = 0;
+        primes_end_3 = 0;
+        primes_end_7 = 0;
+        primes_end_9 = 0;
 
         q_followed_by_1 = 0;
         q_followed_by_3 = 0;
@@ -200,15 +200,15 @@ public class Primes {
      */
     public void output() {
 
-        System.out.println("#1's: " + number_end_1 / number_primes * 100 + "%");
-        System.out.println("#3's: " + number_end_3 / number_primes * 100 + "%");
-        System.out.println("#7's: " + number_end_7 / number_primes * 100 + "%");
-        System.out.println("#9's: " + number_end_9 / number_primes * 100 + "%");
+        System.out.println("#1's: " + primes_end_1 / number_primes * 100 + "%");
+        System.out.println("#3's: " + primes_end_3 / number_primes * 100 + "%");
+        System.out.println("#7's: " + primes_end_7 / number_primes * 100 + "%");
+        System.out.println("#9's: " + primes_end_9 / number_primes * 100 + "%");
 
-        System.out.println("1's following 1: " + q_followed_by_1 / number_end_1 * 100 + "%");
-        System.out.println("3's following 1: " + q_followed_by_3 / number_end_1 * 100 + "%");
-        System.out.println("7's following 1: " + q_followed_by_7 / number_end_1 * 100 + "%");
-        System.out.println("9's following 1: " + q_followed_by_9 / number_end_1 * 100 + "%");
+        System.out.println("1's following 1: " + q_followed_by_1 / primes_end_1 * 100 + "%");
+        System.out.println("3's following 1: " + q_followed_by_3 / primes_end_1 * 100 + "%");
+        System.out.println("7's following 1: " + q_followed_by_7 / primes_end_1 * 100 + "%");
+        System.out.println("9's following 1: " + q_followed_by_9 / primes_end_1 * 100 + "%");
 
     }
 }
