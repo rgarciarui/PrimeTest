@@ -156,27 +156,13 @@ public class Primes {
     }
 
     /**
-     * returns the ones place of a number using recursion
-     * http://stackoverflow.com/questions/9962420/how-to-get-the-place-of-a-number-in-java-eg-tens-thousands-etc
+     * returns the ones place of a number
      * @param number    int
      * @return          int
      */
     public int get_ones_place(int number) {
-
-        //if number is small enough, return it
-        if (number < 10) {
-            return number;
-        }
-
-        //find the log-base-10 of the number
-        int tenthPower = (int) Math.floor(Math.log10(number));
-        //raise 10 to the power of the log to get size of number
-        int place = (int) Math.pow(10, tenthPower);
-        //run the program again. recurse until number is < 10
-        place = get_ones_place((number % place));
-
         //find ones place using modulo
-        return place;
+        return number % 10;
     }
 
     /**
