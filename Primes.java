@@ -20,16 +20,16 @@ public class Primes {
     private int last_prime = 0;
 
     //count of numbers ending in 1,3,7, or 9
-    private double number_end_1;
-    private double number_end_3;
-    private double number_end_7;
-    private double number_end_9;
+    public double number_end_1;
+    public double number_end_3;
+    public double number_end_7;
+    public double number_end_9;
 
-    //count of pairs of 1 followed by i
-    private double one_followed_by_1;
-    private double one_followed_by_3;
-    private double one_followed_by_7;
-    private double one_followed_by_9;
+    //count of pairs of a number q followed by i
+    public double q_followed_by_1;
+    public double q_followed_by_3;
+    public double q_followed_by_7;
+    public double q_followed_by_9;
 
     public Primes() {
         this.number_primes = 0;
@@ -77,29 +77,38 @@ public class Primes {
                 //if the previous number was one
                 if (is_pair) {
                     //increment count of pair
-                    one_followed_by_1++;
+                    q_followed_by_1++;
                 }
+                //update what last prime is
                 last_prime = 1;
+                
                 break;
             case 3:
+                //increment count of current prime
                 number_end_3++;
                 if (is_pair) {
-                    one_followed_by_3++;
+                    q_followed_by_3++;
                 }
+                //update what last prime is
                 last_prime = 3;
+                
                 break;
             case 7:
+                //increment count of current prime
                 number_end_7++;
                 if (is_pair) {
-                    one_followed_by_7++;
+                    q_followed_by_7++;
                 }
+                //update what last prime is
                 last_prime = 7;
                 break;
             case 9:
+                //increment count of current prime
                 number_end_9++;
                 if (is_pair) {
-                    one_followed_by_9++;
+                    q_followed_by_9++;
                 }
+                //update what last prime is
                 last_prime = 9;
                 break;
         }
@@ -179,11 +188,11 @@ public class Primes {
         number_end_3 = 0;
         number_end_7 = 0;
         number_end_9 = 0;
-
-        one_followed_by_1 = 0;
-        one_followed_by_3 = 0;
-        one_followed_by_7 = 0;
-        one_followed_by_9 = 0;
+        
+        q_followed_by_1 = 0;
+        q_followed_by_3 = 0;
+        q_followed_by_7 = 0;
+        q_followed_by_9 = 0;
     }
 
     /**
@@ -196,10 +205,10 @@ public class Primes {
         System.out.println("#7's: " + number_end_7 / number_primes * 100 + "%");
         System.out.println("#9's: " + number_end_9 / number_primes * 100 + "%");
 
-        System.out.println("1's following 1: " + one_followed_by_1 / number_end_1 * 100 + "%");
-        System.out.println("3's following 1: " + one_followed_by_3 / number_end_1 * 100 + "%");
-        System.out.println("7's following 1: " + one_followed_by_7 / number_end_1 * 100 + "%");
-        System.out.println("9's following 1: " + one_followed_by_9 / number_end_1 * 100 + "%");
+        System.out.println("1's following 1: " + q_followed_by_1 / number_end_1 * 100 + "%");
+        System.out.println("3's following 1: " + q_followed_by_3 / number_end_1 * 100 + "%");
+        System.out.println("7's following 1: " + q_followed_by_7 / number_end_1 * 100 + "%");
+        System.out.println("9's following 1: " + q_followed_by_9 / number_end_1 * 100 + "%");
 
     }
 }
