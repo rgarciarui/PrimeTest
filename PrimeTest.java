@@ -12,27 +12,21 @@ import java.util.*;
 public class PrimeTest {
 
     public static void main(String[] args) {
-        int iterations = 20;
-        Primes primes = new Primes();
-        
-        for(int i = 1; i<=iterations;i++){
+        int iterations = 30;
+        for (int i = 1; i <= iterations; i++) {
             //set new range to 2^i
-            int range = (int)Math.pow(2, i);
-            
+            int range = (int) Math.pow(2, i);
             //set output for new cycle
-            System.out.println("iteration: "+i);
-            System.out.println("range: "+range);
+            System.out.println("iteration: " + i);
+            System.out.println("range: " + range);
             
-            //set new range
-            primes.range = range;
-            
+            Primes primes = new Primes(range);
+
             //run the program
             primes.run();
-            
+
             //output the results
             primes.output();
         }
-
-        
     }
 }

@@ -9,6 +9,8 @@ package primetest;
 import java.util.*;
 
 public class Primes {
+    
+    EratosSieve es;
 
     //amount of numbers to look through
     public int range;
@@ -20,25 +22,27 @@ public class Primes {
     private int last_prime = 0;
 
     //count of numbers ending in 1,3,7, or 9
-    public double primes_end_1;
-    public double primes_end_3;
-    public double primes_end_7;
-    public double primes_end_9;
+    public double primes_end_1 = 0;
+    public double primes_end_3 = 0;
+    public double primes_end_7 = 0;
+    public double primes_end_9 = 0;
 
     //count of pairs of a number q followed by a
-    public double q_followed_by_1;
-    public double q_followed_by_3;
-    public double q_followed_by_7;
-    public double q_followed_by_9;
+    public double q_followed_by_1 = 0;
+    public double q_followed_by_3 = 0;
+    public double q_followed_by_7 = 0;
+    public double q_followed_by_9 = 0;
 
     public Primes() {
         this.number_primes = 0;
         //default search is 100
         this.range = 100;
+        es = new EratosSieve(range);
     }
 
     public Primes(int range) {
         this.range = range;
+        es = new EratosSieve(range);
     }
 
     /**
@@ -48,12 +52,21 @@ public class Primes {
         //reset vars before getting stats
         reset();
 
-        //get primes within range
-        for (int i = 2; i < range; i++) {
+        int i = 1;
+
+        //loop until i is finish value
+        do {
+            //increment i
+            i++;
+
+            //set i to the next prime value
             i = get_next_prime(i);
+
             //update the counts with new prime
             update_stats(i);
-        }
+
+        }while (i != -1);
+
     }
 
     /**
@@ -66,10 +79,10 @@ public class Primes {
         int ones_place = get_ones_place(prime);
         boolean is_pair = false;
 
-        if (last_prime == 1) {
+        if (get_ones_place(last_prime) == 1) {
             is_pair = true;
         }
-
+        
         switch (ones_place) {
             case 1:
                 //increment count of current prime
@@ -80,7 +93,7 @@ public class Primes {
                     q_followed_by_1++;
                 }
                 //update what last prime is
-                last_prime = 1;
+                last_prime = prime;
 
                 break;
             case 3:
@@ -90,7 +103,7 @@ public class Primes {
                     q_followed_by_3++;
                 }
                 //update what last prime is
-                last_prime = 3;
+                last_prime = prime;
 
                 break;
             case 7:
@@ -100,7 +113,7 @@ public class Primes {
                     q_followed_by_7++;
                 }
                 //update what last prime is
-                last_prime = 7;
+                last_prime = prime;
                 break;
             case 9:
                 //increment count of current prime
@@ -109,7 +122,7 @@ public class Primes {
                     q_followed_by_9++;
                 }
                 //update what last prime is
-                last_prime = 9;
+                last_prime = prime;
                 break;
         }
 
@@ -122,50 +135,28 @@ public class Primes {
      * @return int
      */
     public int get_next_prime(int current_number) {
-        int next_prime = 0;
-
-        //check to make sure current prime is valid
-        if (current_number <= 1) {
-            return -1;
-        }
+        int next_prime = last_prime;
 
         //iterate each number within range bound
         do {
             //check if current number is prime
-            if (is_prime(current_number)) {
+            if (es.isPrime(current_number)) {
                 //increase number of primes found
                 number_primes++;
                 next_prime = current_number;
             }
             //if it's not, increment current number
             current_number += 1;
-        } while (next_prime == 0);
+        } while (next_prime == last_prime && current_number <= range);
+
+        //if we have reached the end of the output
+        //return a kill value
+        if (current_number > range) {
+            return -1;
+        }
 
         //return the prime number
         return next_prime;
-    }
-
-    /**
-     * returns whether or not number is prime
-     * http://www.mkyong.com/java/how-to-determine-a-prime-number-in-java/
-     *
-     * @param prime_to_test int
-     * @return boolean
-     */
-    private boolean is_prime(int prime_to_test) {
-
-        //check if n is a multiple of 2
-        if (prime_to_test % 2 == 0) {
-            return false;
-        }
-        //if not, then just check the odds
-        for (int i = 3; i * i <= prime_to_test; i += 2) {
-            if (prime_to_test % i == 0) {
-                return false;
-            }
-        }
-        return true;
-
     }
 
     /**
@@ -199,16 +190,21 @@ public class Primes {
      * Outputs results of program
      */
     public void output() {
+        System.out.println("# primes: " + number_primes);
+        System.out.println("#1's: " + (number_primes == 0 ? 0 : round(primes_end_1 / number_primes * 100, 2)) + "%");
+        System.out.println("#3's: " + (number_primes == 0 ? 0 : round(primes_end_3 / number_primes* 100, 2)) + "%");
+        System.out.println("#7's: " + (number_primes == 0 ? 0 : round(primes_end_7 / number_primes * 100, 2)) + "%");
+        System.out.println("#9's: " + (number_primes == 0 ? 0 : round(primes_end_9 / number_primes * 100, 2)) + "%");
 
-        System.out.println("#1's: " + primes_end_1 / number_primes * 100 + "%");
-        System.out.println("#3's: " + primes_end_3 / number_primes * 100 + "%");
-        System.out.println("#7's: " + primes_end_7 / number_primes * 100 + "%");
-        System.out.println("#9's: " + primes_end_9 / number_primes * 100 + "%");
+        System.out.println("1's following 1: " + (primes_end_1 == 0 ? 0 : round(q_followed_by_1 / primes_end_1 * 100, 2)) + "%");
+        System.out.println("3's following 1: " + (primes_end_1 == 0 ? 0 : round(q_followed_by_3 / primes_end_1 * 100, 2)) + "%");
+        System.out.println("7's following 1: " + (primes_end_1 == 0 ? 0 : round(q_followed_by_7 / primes_end_1 * 100, 2)) + "%");
+        System.out.println("9's following 1: " + (primes_end_1 == 0 ? 0 : round(q_followed_by_9 / primes_end_1 * 100, 2)) + "%");
 
-        System.out.println("1's following 1: " + q_followed_by_1 / primes_end_1 * 100 + "%");
-        System.out.println("3's following 1: " + q_followed_by_3 / primes_end_1 * 100 + "%");
-        System.out.println("7's following 1: " + q_followed_by_7 / primes_end_1 * 100 + "%");
-        System.out.println("9's following 1: " + q_followed_by_9 / primes_end_1 * 100 + "%");
-
+    }
+    
+    public double round(double number, int place){
+        double modifier = Math.pow(10, place);
+        return Math.round(number * modifier) / modifier;
     }
 }
