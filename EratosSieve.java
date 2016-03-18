@@ -150,7 +150,7 @@ public class EratosSieve {
     }
 
     /**
-     * build a boolean linked list of arrays that indicate prime numbers
+     * build a boolean 2D array that indicate prime numbers
      */
     public void generate2DArrayEratosSieve() {
         try {
