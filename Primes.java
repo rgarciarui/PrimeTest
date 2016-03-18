@@ -60,10 +60,10 @@ public class Primes {
             i++;
 
             //set i to the next prime value
-            i = get_next_prime(i);
+            i = nextPrime(i);
 
             //update the counts with new prime
-            update_stats(i);
+            updateStats(i);
 
         }while (i != -1);
 
@@ -75,15 +75,15 @@ public class Primes {
      *
      * @param prime int
      */
-    public void update_stats(int prime) {
-        int ones_place = get_ones_place(prime);
+    public void updateStats(int prime) {
+        int onesPlace = onesPlace(prime);
         boolean is_pair = false;
 
-        if (get_ones_place(last_prime) == 1) {
+        if (onesPlace(last_prime) == 1) {
             is_pair = true;
         }
         
-        switch (ones_place) {
+        switch (onesPlace) {
             case 1:
                 //increment count of current prime
                 primes_end_1++;
@@ -134,13 +134,13 @@ public class Primes {
      * @param current_number int
      * @return int
      */
-    public int get_next_prime(int current_number) {
+    public int nextPrime(int current_number) {
         int next_prime = last_prime;
 
         //iterate each number within range bound
         do {
             //check if current number is prime
-            if (es.isPrime(current_number)) {
+            if (isPrime(current_number)) {
                 //increase number of primes found
                 number_primes++;
                 next_prime = current_number;
@@ -158,6 +158,10 @@ public class Primes {
         //return the prime number
         return next_prime;
     }
+    
+    public boolean isPrime(int number_to_check){
+        return es.isPrime(number_to_check);
+    }
 
     /**
      * returns the ones place of a number
@@ -165,7 +169,7 @@ public class Primes {
      * @param number int
      * @return int
      */
-    public int get_ones_place(int number) {
+    public int onesPlace(int number) {
         //find ones place using modulo
         return number % 10;
     }

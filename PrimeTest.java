@@ -12,7 +12,7 @@ import java.util.*;
 public class PrimeTest {
 
     public static void main(String[] args) {
-        int iterations = 30;
+        int iterations = 31;
         for (int i = 1; i <= iterations; i++) {
             //set new range to 2^i
             int range = (int) Math.pow(2, i);
